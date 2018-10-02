@@ -10,6 +10,7 @@ import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import android.widget.Button
 import android.widget.EditText
 import com.example.kursivee.myapplication.R
+import com.example.kursivee.myapplication.WelcomeActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.textInputLayout
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -23,8 +24,6 @@ class LoginUi : AnkoComponent<MainActivity> {
             is EditText -> v.textSize = 24f
         }
     }
-
-
 
     override fun createView(ui: AnkoContext<MainActivity>): View = with(ui) {
         verticalLayout {
@@ -53,7 +52,7 @@ class LoginUi : AnkoComponent<MainActivity> {
                         val response = LoginService().login(userLayout.editText?.text.toString(),
                                 pwdLayout.editText?.text.toString())
                         uiThread {
-                            toast(response?.success.toString())
+                            startActivity<WelcomeActivity>("username" to userLayout.editText?.text.toString())
                         }
                     }
                 }
